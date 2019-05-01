@@ -37,8 +37,20 @@ export default function Form(props)
 
     }
 
+    const applyFunction = () => {
 
-    let newChildren = throwFormMapToFormContent(props.children, bindFunction, props.apply);
+        let formDataObj = {};
+
+        formsValues.forEach( (val, key) => {
+
+            formDataObj[key] = val;
+
+        } )
+
+        props.apply( formDataObj  )
+    }
+
+    let newChildren = throwFormMapToFormContent(props.children, bindFunction, applyFunction);
 
     return (
 

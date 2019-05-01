@@ -6,7 +6,7 @@ import Row, { RowSetter } from "../../components/row";
 import FButton from "../../components/formComponents/buttons/FButton";
 import Checkox from "../../components/formComponents/checkbox";
 import SwitcherSet, {Switch, Case} from "../../components/switcher";
-
+import autorezationRequest from "../../requests/arformreq/signinreq"
 const ARFormStyles = {
     position: "relative",
     height: "100%",
@@ -33,7 +33,7 @@ export default function ARForm(props)
             <div style = { wraperStyles } >
             <SwitcherSet startPointer = {0} >
                 <Case name = "signin">
-                    <Form apply = {  () => {  console.log(1, 2) } } >
+                    <Form apply = {  (logData) => {  autorezationRequest(logData) } } >
                         <RowSetter userStyles = { {margin: "5px 0px"} } > 
                         
                             <Row userStyles = { { marginBottom: "20px" } }><Input ph = "Логин" name = "login"/> </Row>
@@ -54,7 +54,7 @@ export default function ARForm(props)
                     </Form>
                 </Case>
                 <Case name = "signup">
-                    <Form apply = {  () => {  console.log(1, 2) } } >
+                    <Form apply = {  () => {} } >
                         <RowSetter userStyles = { {margin: "20px 0px"} } > 
                             <Row ><Input ph = "Почта" name = "email"/> </Row>
                             <Row ><Input ph = "Логин" name = "login"/>  </Row>

@@ -58,8 +58,7 @@ export default function SwitcherSet(props)
 
         casesMap.set(child.props.name, child)
     } )
-
-    console.log(casesMap, switchTo, casesMap.get(switchTo))
+    
     return(
         <div  style = { 
             {  
