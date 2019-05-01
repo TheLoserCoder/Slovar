@@ -8,7 +8,7 @@ let inlinerStyle ={
     transitionDuration: ".2s",
     background: "rgb(0, 171, 111)",
     zIndex: 2,
-    bottom: "0px"
+    top: "100%"
 };
 
 export default function Input(props)

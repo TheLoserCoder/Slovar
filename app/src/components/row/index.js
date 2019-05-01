@@ -19,7 +19,9 @@ function setRowsParams(children, userStyles)
         let childName = child.type.name;
 
         if(childName === "Row")
-            return React.cloneElement(child, { userStyles2: userStyles }, updatedChildren ? updatedChildren : null )
+            return React.cloneElement(child, { userStyles2: userStyles }, updatedChildren  )
+        else if(childName === "RowSetter")
+            return child;
         else {
             return React.cloneElement(child, {},  updatedChildren )
         }

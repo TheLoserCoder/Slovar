@@ -1,7 +1,7 @@
 .form{
     padding: 10px;
     height: 100%;
-
+    width: 100%;
 }
 
 input{
@@ -12,7 +12,7 @@ input{
     position: relative;
     color: rgb(50, 50, 50);
     font-size: 14pt;
-    border-bottom: 5px solid  rgb(0, 100, 50);
+    
 }
 
 input::placeholder{
@@ -49,4 +49,24 @@ input::placeholder{
         width: 0%;
         height: 0%;
     }
+}
+
+.switccTape{
+
+ 
+    white-space: nowrap;
+    position: relative;
+
+}
+
+.switccTape>div{
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+
+    transition-property: opacity max-height;
+
+    transition-duration: .5s;
+
+    
 }

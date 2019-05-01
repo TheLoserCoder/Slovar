@@ -13,11 +13,11 @@ function throwFormMapToFormContent(children, bindFunction, applyFunction = () =>
 
 
         if(childName === "Input")
-            return React.cloneElement(child, { bindFunction: bindFunction }, updatedChildren ? updatedChildren : null )
+            return React.cloneElement(child, { bindFunction: bindFunction }, updatedChildren )
         else if(childName === "Apply") 
-            return React.cloneElement(child, { bindFunction: applyFunction }, updatedChildren ? updatedChildren : null )
+            return React.cloneElement(child, { bindFunction: applyFunction }, updatedChildren  )
         else if(childName === "Checkbox")
-            return React.cloneElement(child, { bindFunction: bindFunction }, updatedChildren ? updatedChildren : null )
+            return React.cloneElement(child, { bindFunction: bindFunction }, updatedChildren  )
         else {
             return React.cloneElement(child, {},  updatedChildren )
         }
