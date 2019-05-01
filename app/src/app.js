@@ -1,5 +1,5 @@
 import React, {Component} from 'react'; 
-import Body from './components/bodyApp'
+import Body from './appComponents/bodyApp'
 
 
 const AppStyles = {

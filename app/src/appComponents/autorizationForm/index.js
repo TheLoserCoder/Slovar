@@ -1,10 +1,10 @@
 import React from "react";
-import Form from "../formComponents/form";
-import Input from "../formComponents/input";
-import Apply from "../formComponents/buttons/apply";
-import Row, { RowSetter } from "../row";
-import FButton from "../formComponents/buttons/FButton";
-import Checkox from "../formComponents/checkbox";
+import Form from "../../components/formComponents/form"
+import Input from "../../components/formComponents/input";
+import Apply from "../../components/formComponents/buttons/apply";
+import Row, { RowSetter } from "../../components/row";
+import FButton from "../../components/formComponents/buttons/FButton";
+import Checkox from "../../components/formComponents/checkbox";
 
 const ARFormStyles = {
     position: "relative",
