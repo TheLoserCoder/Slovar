@@ -1,40 +1,20 @@
-import React from "react";
-
-//функция прокидывает связывает элементы формы и форму
-function throwFormMapToFormContent(children, bindFunction, applyFunction = () => {})
-{
-   return React.Children.map(
-    children, child => {
-        if(!child.type) return;
-
-        let updatedChildren = throwFormMapToFormContent(child.props.children, bindFunction, applyFunction);
-
-        let childName = child.type.name;
+import React, {useContext} from "react";
+import { PageSwitcherContext } from "../../pageSwitcher"
 
 
-        if(childName === "Input")
-            return React.cloneElement(child, { bindFunction: bindFunction }, updatedChildren )
-        else if(childName === "Apply") 
-            return React.cloneElement(child, { bindFunction: applyFunction }, updatedChildren  )
-        else if(childName === "Checkbox")
-            return React.cloneElement(child, { bindFunction: bindFunction }, updatedChildren  )
-        else {
-            return React.cloneElement(child, {},  updatedChildren )
-        }
-    }
-   )
-}
-
-
+//функция связывает элементы формы и форму
+export const FormContextBindFunction = React.createContext();
+export const FormContextApply = React.createContext();
 
 export default function Form(props)
 {
+
+    const changePage = useContext(PageSwitcherContext);
 
     let formsValues = new Map();
 
     const bindFunction = (name, value) => {
         formsValues.set(name, value);
-
     }
 
     const applyFunction = () => {
@@ -47,18 +27,25 @@ export default function Form(props)
 
         } )
 
-        props.apply( formDataObj  )
+        if( props.apply( formDataObj  ) )
+            if(props.to)
+                changePage(props.to) //если aplly сработал перебрасывает нас на страницу указанную в пропсе to
+        else{
+            console.log("Произошла ошибка проверки")
+        }
     }
 
-    let newChildren = throwFormMapToFormContent(props.children, bindFunction, applyFunction);
 
     return (
 
         <div className = "form">
-            {
-                newChildren
-            }
-        
+            <FormContextBindFunction.Provider value = { bindFunction }>
+                <FormContextApply.Provider value = {applyFunction}>
+                    {
+                        props.children
+                    }
+                </FormContextApply.Provider>
+            </FormContextBindFunction.Provider>
         </div>
 
     )

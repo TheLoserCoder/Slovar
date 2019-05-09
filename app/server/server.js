@@ -5,12 +5,14 @@ const bodyParser = require('body-parser');
 const app = express();
  
 app.use(bodyParser.json());
+
 app.use(express.static(__dirname + "../../public"));
 
-app.post('/login', (req) => {
+app.post('/login', (req, resp) => {
 
-    console.log(req.body)
-
+    if( req.body.login === "admin" && req.body.password === "admin" )
+        resp.send( JSON.stringify(true));
+    else resp.send( JSON.stringify(false));
 })
 
  

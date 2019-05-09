@@ -1,5 +1,16 @@
 @import "./formStyles/index.css";
+@import "./blockAnimations//index.css";
 
 body{
     margin: 0;
+    background: url(..//bgimg/bgimg.jpg);
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+
+h2{
+    font-size: 14pt;
+    color: rgb(200, 200, 200);
+    margin: 0;
+  
 }

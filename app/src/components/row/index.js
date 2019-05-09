@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 
 const styles = {
     display: "flex",
@@ -8,37 +8,15 @@ const styles = {
     alignItems: "center"
 }
 
-function setRowsParams(children, userStyles)
-{
-   return React.Children.map(
-    children, child => {
-        if(!child.type) return;
-
-        let updatedChildren = setRowsParams(child.props.children, userStyles);
-
-        let childName = child.type.name;
-
-        if(childName === "Row")
-            return React.cloneElement(child, { userStyles2: userStyles }, updatedChildren  )
-        else if(childName === "RowSetter")
-            return child;
-        else {
-            return React.cloneElement(child, {},  updatedChildren )
-        }
-    }
-   )
-}
-
+const RowSetterContext = React.createContext({});
 
 export function RowSetter(props)
 {
 
-    let children = setRowsParams( props.children, props.userStyles );
-
     return(
-        <>
-            { children }
-        </>
+        <RowSetterContext.Provider value = { props.userStyles }>
+            { props.children }
+        </RowSetterContext.Provider>
     )
        
     
@@ -46,9 +24,9 @@ export function RowSetter(props)
 
 export default function Row(props)
 {
-
+    let userStyles2 = useContext(RowSetterContext);
     return(
-        <div style = { { ...styles, ...props.userStyles2, ...props.userStyles, justifyContent: props.align || "flex-start" }  }>
+        <div style = { { ...styles, ...userStyles2, ...props.userStyles, justifyContent: props.align || userStyles2.justifyContent  || "flex-start" }  }>
             { props.children }
         </div>
         

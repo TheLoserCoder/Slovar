@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-
+import React, {useState, useCallback, useContext} from "react";
+import { FormContextBindFunction } from "../form"
 
 let inlinerStyle ={
     position: "absolute",
@@ -14,19 +14,25 @@ let inlinerStyle ={
 export default function Input(props)
 {
 
-    let {  name, bindFunction, type } = props;
+    let {  name, type } = props;
+
+    let [ value, setValue ]  = useState("")
 
     let [ active, setActive ] = useState(false);
 
-    function activeEvent()
+    const activeEvent = useCallback(() =>
     {
         setActive(!active)
-    }
-    const changedValues = (event) => {
+    }, [active])
 
-        bindFunction(name, event.target.value)
-    }
-   
+    let bindFunction = useContext(FormContextBindFunction)
+    
+    bindFunction(name, value)
+
+    const changedValues = useCallback( event => {
+        setValue(event.target.value);
+    }, [value])
+    
     let wl;
     if(active)
         wl = {width: "100%", left: "0%"}

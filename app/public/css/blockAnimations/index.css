@@ -1,0 +1,35 @@
+@keyframes hide-opacity{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes veiw-opacity{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes veiw-width{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}
+
+@keyframes hide-width{
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
+}

@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useCallback, useContext} from "react";
 import Row from "../../row"
+import { FormContextBindFunction } from "../form"
+
 const wrapStyle = {
 
     minWidth: "21px",
@@ -24,12 +26,14 @@ const wrapStyle = {
 export default function Checkbox(props)
 {   
 
-    let { name, bindFunction, DefaultActive = 0 } = props;
+    let { name, DefaultActive = 0 } = props;
 
     let [active, setActive] = useState(DefaultActive || null);
 
     let animationName = null
 
+    let bindFunction = useContext(FormContextBindFunction)
+    
     bindFunction(name, active || false)
 
 
@@ -43,7 +47,7 @@ export default function Checkbox(props)
     return(
 
         <Row align = "space-between">
-            <div style = {  wrapStyle } onClick = { () => { setActive(!active) } } >
+            <div style = {  wrapStyle } onClick = { () => { useCallback( setActive(!active), []) } } >
             {
                 <div  style = { {...pointerStyle, ...animationName} }  ></div>
 

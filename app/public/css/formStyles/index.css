@@ -51,7 +51,7 @@ input::placeholder{
     }
 }
 
-.switccTape{
+.switchTape{
 
  
     white-space: nowrap;
@@ -59,14 +59,37 @@ input::placeholder{
 
 }
 
-.switccTape>div{
+.switchTape>div{
     position: relative;
     display: inline-flex;
     width: 100%;
 
-    transition-property: opacity max-height;
+    opacity: 0;
+    animation-duration: .5s;
 
-    transition-duration: .5s;
-
+    animation-fill-mode: forwards;
     
 }
+
+
+@keyframes switchVeiw{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+
+@keyframes switchHide{
+    0%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
+}
+

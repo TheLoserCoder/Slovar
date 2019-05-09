@@ -4,14 +4,14 @@ const styles = {
     display: 'inline-block',
     margin: "5px",
     cursor: "pointer",
-    fontSize: "12pt",
-    transition: "color .3s"
+    transition: "color .3s",
+    whiteSpace: "nowrap"
 }
 
-export default function Apply(props)
+export default function FButton(props)
 {
-    let [mouseOver, setMouseOver] = useState(false);
 
+    let [mouseOver, setMouseOver] = useState(false);
     let st;
     if(mouseOver)
         st = { ...styles, color: "rgb(255, 255, 255)"}
@@ -20,7 +20,7 @@ export default function Apply(props)
 
     return(
         <div style = { st } onMouseLeave = { () => setMouseOver(!mouseOver)  }  onMouseOver = {  () => { setMouseOver(!mouseOver) }  } onClick = {  props.bindFunction } >
-            { props.label }
+            { props.children }
         </div>
         
     )

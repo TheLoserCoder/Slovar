@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useContext} from "react";
+import { FormContextApply } from "../../form"
 
 const styles = {
     background: "#00AB6F",
@@ -12,8 +13,10 @@ const styles = {
 export default function Apply(props)
 {
 
+    const apply = useContext(FormContextApply);
+
     return(
-        <div style = { styles } onClick = {  props.bindFunction } >
+        <div style = { styles } onClick = {  apply } >
             { props.label }
         </div>
         
