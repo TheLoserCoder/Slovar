@@ -42,12 +42,10 @@ function Slide(props)
                                 height: "100%"
                             }
                             }>
-                                <div>
-                                   Слайд {
-                                        props.slideLabelNum
-                                            
-                                    }
-                                   
+                                <div>{
+                                      props.slideLabel
+                                }
+   
                                 </div>
                                 
                             </div>
@@ -219,7 +217,7 @@ function DitionarySetting( props )
                                                         key = {slideNum} 
                                                         slideNum = { slideNum } 
                                                         copy = {slide.copy}
-                                                        slideLabelNum = { slide.number }  
+                                                        slideLabel = { slide.values ? slide.values.word || "Слайд " + slide.number  : "Слайд " + slide.number  }  
                                                         selected  = { selectedSlide && selectedSlide.number === slide.number }
                                                         selectSlide = { selectSlide }/>
 
