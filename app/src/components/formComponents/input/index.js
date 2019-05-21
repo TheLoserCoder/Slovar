@@ -3,10 +3,10 @@ import { FormContextBindFunction } from "../form"
 
 let inlinerStyle ={
     position: "absolute",
-    height: "5px",
+    height: "4px",
     transitionPropertys: "left, width",
     transitionDuration: ".2s",
-    background: "rgb(0, 171, 111)",
+    background: "rgb(46, 139, 87)",
     zIndex: 2,
     top: "100%"
 };
@@ -42,7 +42,7 @@ export default function Input(props)
 
     return(
         <>
-            <input onBlur = { activeEvent }  onFocus = { activeEvent } style = { { position: "relative", width: "100%" } }  type =  { type || "text" }  onChange = {  changedValues } placeholder = { props.ph } />
+            <input key = { props.name } onBlur = { activeEvent }  onFocus = { activeEvent } style = { { position: "relative", width: "100%" } }  type =  { type || "text" }  onChange = {  changedValues } placeholder = { props.ph } />
             <div style = { { ...inlinerStyle, ...wl } }></div>
         </>
         

@@ -7,12 +7,12 @@ import { PageBlock } from "../../components/pageSwitcher"
 
 const menuStyles = {
     height: "100%",
-    transition: "max-width .3s",
+    transition: "left .3s",
     overflow: "hidden",
     position: "absolute",
-    transitionTimingFunction:"linear",
-    zIndex: "100"
-
+    transitionTimingFunction:"ease-out",
+    zIndex: "100",
+    left: "-230px"
 }
 
 
@@ -33,15 +33,15 @@ export default function MainMenu(props)
         }, [mode]
     );
     
-    let menuWidth = mode === "hide" ? "10px" : "220px";
+    let menuWidth = mode === "hide" ? "-230px" : "0px";
 
     return(
-        <div style = { { ...menuStyles, maxWidth: menuWidth } }  onMouseOver = { openMenu } onMouseLeave = { closeMenu }   >
+        <div style = { { ...menuStyles, left: menuWidth } }  onMouseOver = { openMenu } onMouseLeave = { closeMenu }   >
             <PageBlock>
                 <PageBlock animationType = "width">
                     <MenuWraper>
-                    <div  >
-                            <div style = { { position: "relative", width: "150px", padding: "0px 20px", fontSize: "14pt"} }>
+                    <div >
+                            <div style = { { position: "relative", width: "200px", padding: "0px 20px", fontSize: "13pt"} }>
                                         <div style = { { padding: "10px 0px", textAlign: "center" } }>
                                                 <div style = { { 
                                                     display: "inline-block",
@@ -49,58 +49,44 @@ export default function MainMenu(props)
                                                     background: "url(./bgimg/bgimg.jpg)",
                                                     backgroundSize: "cover",
                                                     borderRadius: "50%", 
-                                                    height: "100px",
-                                                    width: "100px",
-                                                    border: "2px solid #00AB6F",
+                                                    height: "130px",
+                                                    width: "130px",
+                                                    border: "3px solid  rgba(255,255,255,1)",
                                                 } } >
                                                 </div>
                                                 
                                         </div>
-
-                                        <div>
+                                    <div  className = "menuList">
                                             <PageSwitcher to = "creatinDictonatyPage">
-                                                <FButton> Создать словарь</FButton>
+                                                Создать словарь
                                             </PageSwitcher>
-                                        </div>
-                                        <div>
-                                            <PageSwitcher to = "createDictionary">
-                                                <FButton> Мои словари</FButton>
+                                            <PageSwitcher to = "creatinDictonatyPage">
+                                                Поиск словарей
                                             </PageSwitcher>
-                                        </div>
-                                        <div>
-                                            <PageSwitcher to = "createDictionary">
-                                                <FButton>  Поиск словарей</FButton>
+                                            <PageSwitcher to = "creatinDictonatyPage">
+                                                Мои словари
                                             </PageSwitcher>
-                                        </div>
-                                        <Sep/>
-                                        <div>
                                             <PageSwitcher to = "startPage">
-                                                <FButton> Начальная </FButton>
+                                                Начальная
                                             </PageSwitcher>
-                                        </div>
-                                        <div>
-                                            <PageSwitcher to = "createDictionary">
-                                                <FButton>  Сообщения </FButton>
+                                            <PageSwitcher to = "creatinDictonatyPage">
+                                                Сообщения
                                             </PageSwitcher>
-                                        </div>
-                                        <div>
-                                            <PageSwitcher to = "createDictionary">
-                                                <FButton>  Уведомления </FButton>
+                                            <PageSwitcher to = "creatinDictonatyPage">
+                                                Уведомления
                                             </PageSwitcher>
-                                        </div>
-                                        <div>
-                                            <PageSwitcher to = "createDictionary">
-                                                <FButton>  Вопросы</FButton>
+                                            <PageSwitcher to = "creatinDictonatyPage">
+                                                Вопросы
                                             </PageSwitcher>
-                                        </div>
-                                        <Sep/>
-                                        <div>
-                                            <PageSwitcher to = "autorizationPage">
-                                                <FButton>  Выйти</FButton>
-                                            </PageSwitcher>
-                                        </div>
-                                        
-                                
+                                            
+                                    </div>
+                                    <Sep/>
+                                    <FButton>
+                                        <PageSwitcher to = "autorizationPage">
+                                                    Выход
+                                        </PageSwitcher>
+                                    </FButton>
+                                    
                             </div>
                     </div>
                     </MenuWraper>

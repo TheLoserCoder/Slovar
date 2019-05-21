@@ -1,18 +1,17 @@
 import React from "react";
 
 const wraperStyles = {
-    background: "rgba(0, 0, 0, 0.6)",
     width: "100%",
     height: "100%"
 }
 
 
-export default function Wraper(props)
+export default function Wraper({ children, background })
 {
     return(
-        <div style = { wraperStyles } >
+        <div style = { { ...wraperStyles, background: background||  "rgb(200,200,200)" } } >
             {
-                props.children
+                children
             }
         </div>
     )

@@ -14,9 +14,9 @@ export default function FButton(props)
     let [mouseOver, setMouseOver] = useState(false);
     let st;
     if(mouseOver)
-        st = { ...styles, color: "rgb(255, 255, 255)"}
+        st = { ...styles, color: "rgb(255,255,255"}
     else
-        st = { ...styles, color: "rgb(200, 200, 200)"}
+        st = { ...styles, color: "rgb(235, 235, 235)"}
 
     return(
         <div style = { st } onMouseLeave = { () => setMouseOver(!mouseOver)  }  onMouseOver = {  () => { setMouseOver(!mouseOver) }  } onClick = {  props.bindFunction } >

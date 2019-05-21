@@ -58,7 +58,7 @@ export default function ARForm(props)
                                         </Row>
                                     </Row>
                                     <Row>
-                                        <Row><Apply label = "Войти"/></Row>
+                                        <Row><Apply >Войти </Apply></Row>
                                         <Row align = "flex-end">
                                         <Switch to = "signup"> <FButton>Регистрация</FButton></Switch>
                                         
@@ -89,7 +89,7 @@ export default function ARForm(props)
                                     <Row userStyles = { {marginTop: "10px"} }  ><Input ph = "Почта" name = "email"/> </Row>
                                     <Row userStyles =  {  { marginBottom: "0px" } }>
                                         <RowSetter userStyles = { { margin: "0px 0px" } } >
-                                            <Row><Apply label = "Восстановить"/></Row>
+                                            <Row><Apply> Восстановить </Apply></Row>
                                             <Row align = "flex-end"><Switch to = "signin"><FButton> Назад </FButton></Switch></Row>
                                         </RowSetter>
                                     </Row>

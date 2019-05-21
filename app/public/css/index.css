@@ -3,14 +3,130 @@
 
 body{
     margin: 0;
-    background: url(..//bgimg/bgimg.jpg);
+    background: rgb(250, 250, 250) ;
     background-repeat: no-repeat; 
     background-size: cover;
 }
 
 h2{
     font-size: 14pt;
-    color: rgb(200, 200, 200);
+    color: white;
     margin: 0;
   
+}
+
+ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.menuList>div{
+    background: rgba(255,255,255, 0);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    border-left: 0px solid rgba(255,255,255, 0);
+    transition: border .3s;
+}
+
+.menuList>div:hover{
+    background: rgba(255,255,255,0.1);
+    border-left: 3px solid rgba(255,255,255, 0.3);
+}
+
+.row{
+    white-space: nowrap;
+}
+.row>div{
+    display: inline-block;
+    
+}
+
+.slide{
+    position: relative;
+    margin: 10px;
+    border: 5px solid rgba(0,0,0,0);
+    display: flex;
+    flex-flow: column;
+    transition: border .2s;
+    cursor: pointer;
+    animation-name: veiw-slide;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+.slideTools{
+    background: rgba(46, 139, 87,1);
+    color: white;
+    display: flex;
+    width: 100%;
+}
+
+.slideTools>div{
+    padding: 10px;
+    background: rgba(0,0,0,0, 0);
+    transition: background .3s;
+    cursor: pointer;
+}
+
+.slideTools>div:hover{
+    background: rgba(255,255,255,0.2) !important;
+}
+
+@keyframes veiw-slide{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.slideSwipe{
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+@keyframes swipe-veiw{
+    0%{
+        opacity: 0;
+        margin-top: -30%;
+    }
+    100%{
+        margin-top: 0%;
+        opacity: 1;
+    }
+}
+
+@keyframes swipe-hide{
+    0%{
+        opacity: 1;
+        margin-top: 0%;
+    }
+    100%{
+        margin-top: -30%;
+        opacity: 0;
+    }
+}
+
+@keyframes swipe-left-hide{
+    0%{
+        opacity: 1;
+        margin-left: 0%;
+    }
+    100%{
+        margin-left: -30%;
+        opacity: 0;
+    }
+}
+
+@keyframes swipe-left-veiw{
+    0%{
+        opacity: 0;
+        margin-left: 30%;
+    }
+    100%{
+        margin-left: 0%;
+        opacity: 1;
+    }
 }

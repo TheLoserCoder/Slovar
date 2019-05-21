@@ -1,10 +1,15 @@
 import {  combineReducers } from "redux";
 
 
-import { signIn } from "./reducers/signin-reducer.js"
-import { switcherPage } from "./reducers/switchpage-reducer"
+import { signIn } from "./reducers/signin-reducer.js";
+import { switcherPage } from "./reducers/switchpage-reducer";
+import { draftDictionary, dictionary } from "./reducers/dictionary-reducer";
+
+
 
 export default combineReducers({
     signIn,
-    switcherPage
+    switcherPage,
+    draftDictionary,
+    dictionary
 })

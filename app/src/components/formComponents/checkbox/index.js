@@ -16,7 +16,7 @@ const wrapStyle = {
 },
  pointerStyle = {
      position: "absolute",
-     background: "#00AB6F",
+     background: "rgb(46, 139, 87)",
      animationDuration: ".5s",
      
      animationFillMode: "forwards",

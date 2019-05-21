@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import { FormContextApply } from "../../form"
 
 const styles = {
-    background: "#00AB6F",
+    background: "rgb(46, 139, 87)",
     color: "white",
     padding: "10px",
     display: 'inline-block',
@@ -17,7 +17,7 @@ export default function Apply(props)
 
     return(
         <div style = { styles } onClick = {  apply } >
-            { props.label }
+            { props.children }
         </div>
         
     )
