@@ -46,7 +46,7 @@ export default function Checkbox(props)
     
     return(
 
-        <Row align = "space-between">
+        <Row>
             <div style = {  wrapStyle } onClick = { () => { useCallback( setActive(!active), []) } } >
             {
                 <div  style = { {...pointerStyle, ...animationName} }  ></div>
@@ -54,7 +54,7 @@ export default function Checkbox(props)
             }
                 
             </div>
-            <div onClick = { () => { setActive(!active) } } style = { { color: "white", cursor: "pointer" } } >
+            <div onClick = { () => { setActive(!active) } } style = { { marginLeft: "10px", color: "white", cursor: "pointer" } } >
                 { props.label }
             </div>
         </Row>

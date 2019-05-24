@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useContext} from "react";
+import React, {useState, useCallback, useContext, useEffect} from "react";
 import { FormContextBindFunction } from "../form"
 
 let inlinerStyle ={
@@ -16,7 +16,7 @@ export default function Input(props)
 
     let {  name, type } = props;
 
-    let [ value, setValue ]  = useState("")
+    let [ value, setValue ]  = useState(props.default || "")
 
     let [ active, setActive ] = useState(false);
 
@@ -27,7 +27,10 @@ export default function Input(props)
 
     let bindFunction = useContext(FormContextBindFunction)
     
-    bindFunction(name, value)
+    useEffect(
+        () => { bindFunction(name, value) }
+    , [value])
+   
 
     const changedValues = useCallback( event => {
         setValue(event.target.value);
@@ -42,7 +45,7 @@ export default function Input(props)
 
     return(
         <>
-            <input key = { props.name } onBlur = { activeEvent }  onFocus = { activeEvent } style = { { position: "relative", width: "100%" } }  type =  { type || "text" }  onChange = {  changedValues } placeholder = { props.ph } />
+            <input value = { value }  key = { props.name } onBlur = { activeEvent }  onFocus = { activeEvent } style = { { position: "relative", width: "100%" } }  type =  { type || "text" }  onChange = {  changedValues } placeholder = { props.ph } />
             <div style = { { ...inlinerStyle, ...wl } }></div>
         </>
         

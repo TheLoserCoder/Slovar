@@ -12,7 +12,9 @@ import Apply from "../../components/formComponents/buttons/apply"
 import { connect } from "react-redux"
 
 
-function CreatingDictonatyPage(props)
+import DB from "../../reduxLogic/db"
+
+function CreatingDictonaryPage(props)
 {
 
     useEffect(
@@ -26,18 +28,14 @@ function CreatingDictonatyPage(props)
     )
     const creatingDictionaty = (dictionaryTemplateData, errorfunction) =>
     {
-        //console.log(dictionaryTemplateData)
         for(let i in dictionaryTemplateData){
             if(dictionaryTemplateData[i] === "") {
                 errorfunction(["Все поля обязательны к заполнению"]);
                 return false;
             }
         }
-
-
-        props.onDraft(dictionaryTemplateData)
-
-        return true;
+        
+        return { id: DB.push(dictionaryTemplateData) };
     }
     return(
         <Row userStyles = { { width: "100%", height: "100%", position: "relative"} }>
@@ -72,7 +70,7 @@ function CreatingDictonatyPage(props)
                                             <Form  apply = { creatingDictionaty } to = "dictionarySetting" >
                                                 <RowSetter userStyles = { { margin: "10px 0px" } }>
                                                     <Row>
-                                                        <Input  name = "tittle" ph = "Название" />
+                                                        <Input  name = "title" ph = "Название" />
                                                     </Row>
                                                     <Row> 
                                                         <Select name = "lang" ph = "Язык оригинала">
@@ -133,4 +131,4 @@ export default connect(
             dispatch( { type: "CREATE_DRAFT", draft} )
         }
     })
-)(CreatingDictonatyPage);
+)(CreatingDictonaryPage);

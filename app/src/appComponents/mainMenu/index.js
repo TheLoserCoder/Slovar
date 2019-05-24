@@ -63,7 +63,7 @@ export default function MainMenu(props)
                                             <PageSwitcher to = "creatinDictonatyPage">
                                                 Поиск словарей
                                             </PageSwitcher>
-                                            <PageSwitcher to = "creatinDictonatyPage">
+                                            <PageSwitcher to = "myDictionarysPage">
                                                 Мои словари
                                             </PageSwitcher>
                                             <PageSwitcher to = "startPage">

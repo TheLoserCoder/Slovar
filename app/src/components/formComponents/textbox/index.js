@@ -1,20 +1,32 @@
 import {FormContextBindFunction} from "../form"
-import React, {useContext, useRef} from "react";
+import React, {useState, useContext, useRef, useEffect} from "react";
 
 
 export default function Textbox(props)
 {
 
     let bindFunction = useContext(FormContextBindFunction);
+    let [value, setValue] = useState(props.default || "")
     let text = useRef(null)
     
-    const changeValues = () => {
-        bindFunction(props.name, text.current.innerText || "")
+    const changeValues = (e) => {
+        
+        setValue(e.target.value || "");
+
+      
+       
     }
 
-    return(
-        <div ref = { text }  onInput = { changeValues } key = {props.name} contentEditable = "true" placeholder = { props.ph }>
+    useEffect(
+        () => {
+            console.log(value)
+            bindFunction(props.name, value)
 
-        </div>
+        }, [value]
+    )
+
+    return(
+        <textarea value = {value}  ref = { text }  onChange = { changeValues } key = {props.name}  placeholder = { props.ph  } />
+
     )
 }

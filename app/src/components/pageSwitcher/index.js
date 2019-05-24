@@ -71,9 +71,11 @@ export function PageSwitcherSet(props)
     let [pagesMap] = useState( new Map( props.children.map( child => [child.props.name, child] )  )  );
 
     let [prevPage, setPrevPgae] = useState(null);
+    
 
-    const changePage = useCallback( (pageName, newParams) => {
+    const changePage = (pageName, newParams) => {
         setPrevPgae(currentPageName);
+       
         setMode(0);
         setTimeout( () => {
             if(newParams) setParams(newParams)
@@ -82,7 +84,7 @@ export function PageSwitcherSet(props)
 
         } ,300)
        
-    }, []);
+    }
 
 
     return(
@@ -91,7 +93,7 @@ export function PageSwitcherSet(props)
                 {
                     React.cloneElement(pagesMap.get(currentPageName), {
                         params,
-                        prevPage: prevPage
+                        prevPage: pagesMap.get(currentPageName).props.prevPage || prevPage
                     })
                 }
             </PageModeContext.Provider>

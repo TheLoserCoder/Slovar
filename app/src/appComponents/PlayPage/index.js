@@ -7,6 +7,10 @@ import {PageSwitcher, PageBlock} from "../../components/pageSwitcher"
 import { connect } from "react-redux";
 import Row from "../../components/row";
 
+
+import DB from "../../reduxLogic/db";
+
+
  function TypeBlock(props)
  {
      if(props.type === 1)
@@ -19,7 +23,7 @@ import Row from "../../components/row";
  function PlayPage(props)
 {
    
-    let dictionary = props.params.draft || props.dictionarys.filter(dict => dict.id === props.params.id)[0];
+    let dictionary = props.params.draft || DB.dictionarys.filter(dict => dict.id === props.params.id)[0];
 
     let slides =  dictionary.slides.filter(
             slide => slide.values && slide.values.word && (slide.values.translate || slide.values.variants)
@@ -49,6 +53,16 @@ import Row from "../../components/row";
        
     };
 
+    const onEnd = () => {
+        setAnimation(0)
+        setAnswer(null)
+        setTimeout(
+            () => {
+                setSlideNum( slides.length );
+                setAnimation(1);
+            }, 300
+        )
+    }
 
     if(slide.type === -1 && slideNum < slides.length ) nextSlide();
 
@@ -91,8 +105,8 @@ import Row from "../../components/row";
                         </div>
 
                         <PageSwitcher to = { props.prevPage }  params =  { { ...props.params }  }>
-                            <div style = { {cursor: "pointer", background: "rgb(46, 139, 87)", color: "white", padding: "10px"} }>
-                                    Закончить
+                            <div style = { { marginTop: "50px", cursor: "pointer", background: "rgb(46, 139, 87)", color: "white", padding: "10px"} }>
+                                    Вернуться к словарю
                             </div>
                         </PageSwitcher>
 
@@ -170,6 +184,11 @@ import Row from "../../components/row";
                                         </div>
             
                                     }
+
+                                    <div style = { {cursor: "pointer"} } onClick = { onEnd }>
+                                        Закончить
+                                    </div>
+
                                 
                                     <div  style = { {cursor: "pointer"} }  onClick = { nextSlide }  >
                                         Дальше

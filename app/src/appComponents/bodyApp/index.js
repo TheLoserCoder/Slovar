@@ -6,6 +6,8 @@ import CreatinDictonatyPage from "../creatingDictionaryPage"
 import DictionarySetting from "../dictionarySettingsPage"
 import SlideSettingPage from "../slideSettingPage"
 import PlayPage from "../PlayPage";
+import MyDictionarysPage from "../myDictionarysPage"
+
 const bodyAppStyles = {
     position: "relative",
     width: "100%",
@@ -17,7 +19,7 @@ export default  function Body(props)
     return(
 
         <div style = { bodyAppStyles } >
-            <PageSwitcherSet default = "dictionarySetting">
+            <PageSwitcherSet default = "autorizationPage">
                 <Page name = "autorizationPage">
 
                          <ARForm/>
@@ -43,6 +45,9 @@ export default  function Body(props)
                 </Page>
                 <Page name = "playPage">
                     <PlayPage/>
+                </Page>
+                <Page name = "myDictionarysPage">
+                    <MyDictionarysPage/>
                 </Page>
             </PageSwitcherSet> 
         </div>

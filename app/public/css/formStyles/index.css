@@ -23,7 +23,7 @@ input::placeholder{
     color: rgb(245, 245, 245);
 }
 
-div[contenteditable=true]{
+div[contenteditable=true], textarea{
     padding: 10px;
     background: white;
     position: relative;
@@ -37,7 +37,13 @@ div[contenteditable=true]{
     overflow-x: auto;
     border: 3px solid rgba(0,0,0,0);
     transition: border .3s;
+    resize: none;
 }
+
+textarea::placeholder{
+    color: rgb(180, 180, 180);
+}
+
 [contenteditable=true]:empty:before {
     content: attr(placeholder);
     display: block; /* For Firefox */
@@ -45,7 +51,7 @@ div[contenteditable=true]{
   }
 
 
-div[contenteditable=true]:focus{
+div[contenteditable=true]:focus, textarea:focus{
     border: 3px solid rgb(46, 139, 87);
 }
 @keyframes viewCheckbox{

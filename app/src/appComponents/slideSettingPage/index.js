@@ -16,6 +16,9 @@ import Selector, {Values} from "../../components/formComponents/Selector";
 import Onetoone from "../../components/slideComponents/Onetoone";
 import Onetomany from "../../components/slideComponents/Onetomany/";
 
+
+import DB from "../../reduxLogic/db"
+
 function TypeBlock({type, values})
 {
     if(type === 1){
@@ -41,7 +44,7 @@ function SlideSetting( props )
 {
    
  
-    let { wortedDictionary } = props;
+    let [wortedDictionary, setWD] = useState(DB.getById(props.params.id));
 
     let [slide, setSlide] = useState(wortedDictionary.slides.filter( slide => slide.number === props.params.number )[0])
 
@@ -49,16 +52,16 @@ function SlideSetting( props )
 
     useEffect(
         () => {
-           
-            props.onSaveDraft({
-                    ...wortedDictionary,
-                    slides: wortedDictionary.slides.map(s => {
-                        return s.number === slide.number ? slide : s;
-                    })
-                })
-            }
 
-            
+            setWD( DB.updateById(props.params.id,{
+                ...wortedDictionary,
+                slides: wortedDictionary.slides.map(s => {
+                    return s.number === slide.number ? slide : s;
+                })
+            } ) );
+        
+        
+        }    
         , [slide, swipe]);
 
     const onValues = (data) => {
@@ -208,9 +211,6 @@ export default connect(
         wortedDictionary: state.draftDictionary
     }),
     dispatch => ({
-        onSaveDraft: (newDraft) => {
-            dispatch({type: "SAVE_DRAFT", newDraft})
-        },
         onSave: ( id, newObj ) => {
             dispatch( {type: "SAVE_DICTIONARY", data: {
                 id,

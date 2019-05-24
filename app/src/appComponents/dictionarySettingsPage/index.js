@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
 import Row, { RowSetter } from "../../components/row"
 import MainMenu from "../mainMenu"
-import { PageBlock, PageSwitcher } from "../../components/pageSwitcher"
+import { PageBlock, PageSwitcher, PageSwitcherContext } from "../../components/pageSwitcher"
 import Wraper from "../../components/Wraper";
 import Sep from "../../components/Separacot";
 import Form from "../../components/formComponents/form"
@@ -12,6 +12,11 @@ import Apply from "../../components/formComponents/buttons/apply"
 import { connect } from "react-redux"
 import Menuwraper from "../../components/menuWraper"
 import FButton from "../../components/formComponents/buttons/FButton";
+
+
+import DB from "../../reduxLogic/db.js"; 
+
+
 
 function Slide(props)
 {
@@ -60,7 +65,7 @@ function Slide(props)
 function DitionarySetting( props )
 {
     
-    let  { wortedDictionary } = props;
+    let [wortedDictionary, setWD] = useState(DB.getById( props.params ? props.params.id : 1 ));
 
     let [ selectedSlide, setSelectedSlide ] = useState(null);
 
@@ -68,17 +73,49 @@ function DitionarySetting( props )
 
     let [moveMode, setMoveMode] = useState(0);
 
-    let [arrNumber, setArrNumber] = useState(slideArr.length + 1)
+    let [arrNumber, setArrNumber] = useState(slideArr.length + 1);
+
+    let [setting, setSetting] = useState( 1 );
+
+    let [openSetting, setOpenSetting] = useState(0);
+
+    let settingWrap = useRef(null);
+
+    let changePage = useContext(PageSwitcherContext);
+
 
     useEffect(
         () => {
-        props.onSaveDraft({
-                ...wortedDictionary,
-                slides: slideArr
-            })
-        }
-    , [slideArr])
 
+            setWD(DB.updateById(wortedDictionary.id, {slides: slideArr, setting: setting}));
+        
+        }
+    , [slideArr, setting])
+
+    const changeSetting = (data, errorfunction) => {
+
+        for(let i in data){
+            if(!data[i]) {
+                errorfunction(["Все поля обязательны к заполнению"]);
+                return false;
+            }
+        }
+        setOpenSetting(0);
+
+        setSetting(data);
+
+        return true;
+    }
+
+    const onDeleteDictionary = () => {
+
+        DB.remove(wortedDictionary.id);
+        console.lo
+
+        changePage("myDictionarysPage");
+
+
+    }
     const appendSlide = () => {
         setArrNumber(arrNumber + 1)
         setSlideArr([ ...slideArr, {
@@ -89,16 +126,21 @@ function DitionarySetting( props )
         }])
     }
 
+    const onOpenSetting = () => {
+        setOpenSetting(1)
+    }
 
-    const saveDictionary = () => {
-        props.onSave( wortedDictionary.id, { 
-            slides: [...slideArr]
-        } )
+    const onCloseSetting = (e) => {
+
+        if( settingWrap.current !== e.target ) return;
+
+        setOpenSetting(0)
     }
 
     const onMoveMode = () =>{
         setMoveMode(!moveMode)
     }
+
 
     const deleteSlide = () => {
         let selectedSlideIndex = slideArr.indexOf(selectedSlide);
@@ -145,6 +187,116 @@ function DitionarySetting( props )
                             <MainMenu staticMode = ""/>
                             
                     </Row>
+
+                {
+                openSetting ? 
+                
+                <div ref = { settingWrap } style = {
+                    {
+                        background: "rgba(0,0,0,.5)",
+                        position: "absolute",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: "999",
+                        width: "100%",
+                        height: "100%",
+                        left: "0px",
+                        top: "0px",
+            
+                        animationName: "veiw-opacity",
+                        animationDuration: ".3s",
+                        animationFillMode: "forwards"
+                    }
+                } onClick = { onCloseSetting } >
+
+      
+                                    <div style = { { minWidth: "500px", background: "rgb(200,200,200)", display: "inline-flex", padding: "20px", flexFlow: "column"}  }>
+                                        <div>
+                                            <div>
+                                                <h2>Настройки</h2>
+                                            </div>
+                                            <Sep/>
+                                        </div>
+                                        <div style = { { width: "auto", display: "flex"} }>
+                                            <Form  apply = { changeSetting } >
+                                                <RowSetter userStyles = { { margin: "10px 0px" } }>
+                                                    <Row>
+                                                        <Input default = { wortedDictionary.title } name = "title" ph = "Название" />
+                                                    </Row>
+                                                    <Row> 
+                                                        <Select default = { wortedDictionary.lang }  name = "lang" ph = "Язык оригинала">
+                                                            <Value value = "1">Английский</Value>
+                                                            <Value value = "2">Русский</Value>
+                                                            <Value value = "3">Французский</Value>
+                                                            <Value value = "4">Немецкий</Value>
+                                                        </Select>
+                                                    </Row>
+                                                    <div className = "row">
+                                                        <div> 
+                                                            <Select default = { wortedDictionary.translang }   name = "translang" ph = "Язык перевода">
+                                                                <Value value = "1">Английский</Value>
+                                                                <Value value = "2">Русский</Value>
+                                                                <Value value = "3">Французский</Value>
+                                                                <Value value = "4">Немецкий</Value>
+                                                            </Select>
+                                                        </div>
+                                                        <div> 
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <Row>
+                                                            <Select default = { wortedDictionary.difficulty } name = "difficulty" ph = "Сложность">
+                                                                <Value value = "1">Базовый уровень</Value>
+                                                                <Value value = "2">Средний уровень</Value>
+                                                                <Value value = "3">Продвинутый уровень</Value>
+                                                            </Select>
+                                                    </Row>
+                                                    <Row>
+                                                        <Textbox default = { wortedDictionary.comment }  name = "comment" ph = "Описание" />
+                                                    </Row>
+                                                    <Row>
+                                                        <Row>
+                                                            <Apply> Сохранить </Apply>
+                                                            <div style = {
+                                                                {
+                                                                    color: "white",
+                                                                    cursor: "pointer",
+                                                                    marginLeft: "30px"
+                                                                }
+                                                            } onClick = { () => { setOpenSetting(0) } } >
+                                                                Отмена
+                                                            </div>
+                                                        </Row>
+                                                        <Row align = "flex-end">
+                                                            <div style = {
+                                                            {
+        
+                                                                cursor: "pointer",
+    
+                                                                color: "rgb(100,100,100)"
+                                                            }
+                                                            } onClick = { onDeleteDictionary }>
+                                                                Удалить словарь
+                                                            </div>
+                                                        </Row>
+                                                    </Row>
+
+                                                   
+                                                </RowSetter>   
+                                            </Form>
+                                        </div>
+                                    </div>
+             
+
+
+                </div>
+
+                :
+
+                null
+                
+                }
                 
                 <div style = {  { 
                         width: "100%", 
@@ -172,11 +324,11 @@ function DitionarySetting( props )
                                         
                                     }
                                 }>
-                                    <div>
-                                        <PageSwitcher to = "slideSettingPage" params = { { number: selectedSlide ? selectedSlide.number : null } }>
+                        
+                                        <PageSwitcher to = "slideSettingPage" params = { { id: wortedDictionary.id, number: selectedSlide ? selectedSlide.number : null } }>
                                             Управлять
                                         </PageSwitcher>
-                                    </div>
+                    
                                     <div onClick = { onMoveMode }   
                                         style = { 
                                             { background: moveMode ? "rgba(255,255,255,0.2)" : "rgba(255,255,255, 0)"  } } >
@@ -217,6 +369,7 @@ function DitionarySetting( props )
                                                         key = {slideNum} 
                                                         slideNum = { slideNum } 
                                                         copy = {slide.copy}
+                                            
                                                         slideLabel = { slide.values ? slide.values.word || "Слайд " + slide.number  : "Слайд " + slide.number  }  
                                                         selected  = { selectedSlide && selectedSlide.number === slide.number }
                                                         selectSlide = { selectSlide }/>
@@ -246,21 +399,17 @@ function DitionarySetting( props )
                                                 Воспроизвести
                                             </div>
                                         </PageSwitcher>
-                                        <div>
+                                        <div onClick = { onOpenSetting } >
                                             Настройки
                                         </div>
-                                        <div onClick = { saveDictionary } >
-                                            Сохранить
-                                        </div>
-                                        <div>
-                                            Закончить
-                                        </div>
+                                        <PageSwitcher to = "myDictionarysPage">
+                                            <div>
+                                                Закончить
+                                            </div>
+                                        </PageSwitcher>
                                         
 
                                     </div>
-                                    <Sep/>
-
-                                    <FButton> Удалить </FButton>
                                     </div>
                             </Menuwraper>
                         </PageBlock>
@@ -277,9 +426,6 @@ export default connect(
         wortedDictionary: state.draftDictionary
     }),
     dispatch => ({
-        onSaveDraft: (newDraft) => {
-            dispatch({type: "SAVE_DRAFT", newDraft})
-        },
         onSave: ( id, newObj ) => {
             dispatch( {type: "SAVE_DICTIONARY", data: {
                 id,

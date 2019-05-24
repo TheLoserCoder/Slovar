@@ -76,7 +76,7 @@ export default function ARForm(props)
                                     <Row ><Input ph = "Пароль" name = "login"/>  </Row>
                                     <Row userStyles =  {  { marginBottom: "0px" } }>
                                         <RowSetter userStyles = { { margin: "0px 0px" } } >
-                                            <Row><Apply label = "Регистрация"/></Row>
+                                            <Row><Apply>Регистрация</Apply></Row>
                                             <Row align = "flex-end"><Switch to = "signin"><FButton> Назад </FButton></Switch></Row>
                                         </RowSetter>
                                     </Row>

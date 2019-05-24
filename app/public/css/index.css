@@ -130,3 +130,7 @@ ul{
         opacity: 1;
     }
 }
+
+.dictDecription>div{
+    margin: 10px
+}

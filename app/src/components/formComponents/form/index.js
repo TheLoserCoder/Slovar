@@ -12,7 +12,7 @@ export default function Form(props)
     const [errors, setErrors] = useState([])
     const changePage = useContext(PageSwitcherContext);
 
-    let formsValues = new Map();
+    let [formsValues, setNewFV] = useState(new Map());
    
     const applyFunction = () => {
 
@@ -24,9 +24,12 @@ export default function Form(props)
 
         } )
 
-        if( props.apply( formDataObj, onError  ) )
+        let params = props.apply( formDataObj, onError );
+
+        if( params !== false ){
             if(props.to)
-                changePage(props.to, props.params) //если aplly сработал перебрасывает нас на страницу указанную в пропсе to
+                changePage(props.to, params) //если aplly сработал перебрасывает нас на страницу указанную в пропсе to
+        }
         else{
             console.log("Произошла ошибка проверки")
         }
@@ -34,6 +37,9 @@ export default function Form(props)
 
     const bindFunction = (name, value) => {
         formsValues.set(name, value);
+
+        setNewFV(formsValues);
+
         if(props.hotMode){
             applyFunction()
         }
